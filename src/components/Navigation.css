@@ -87,7 +87,14 @@
     border-top: 1px solid var(--glass-border);
 }
 
-/* Tablet responsiveness: Collapse to Icons Only */
+/* Desktop-only, Mobile-only helpers */
+.mobile-only {
+    display: none !important;
+}
+
+/* =============================================
+   TABLET: Collapse sidebar to icons
+============================================= */
 @media (max-width: 1024px) {
     .sidebar {
         width: 80px;
@@ -109,12 +116,23 @@
     }
 }
 
-/* Mobile responsiveness: Bottom Navigation Bar */
+/* =============================================
+   MOBILE: Bottom tab bar + Bottom sheets
+============================================= */
 @media (max-width: 768px) {
+
+    /* Hide desktop-only items */
+    .desktop-only {
+        display: none !important;
+    }
+
+    .mobile-only {
+        display: flex !important;
+    }
+
     .sidebar {
         width: 100vw;
         height: auto;
-        min-height: 64px;
         top: auto;
         bottom: 0;
         flex-direction: row;
@@ -122,13 +140,14 @@
         padding-bottom: var(--safe-area-bottom, 0px);
         border-right: none;
         border-top: 1px solid var(--glass-border);
-        background: rgba(15, 17, 21, 0.95);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
+        background: rgba(15, 17, 21, 0.97);
+        backdrop-filter: blur(24px);
+        -webkit-backdrop-filter: blur(24px);
+        z-index: 100;
     }
 
     .light .sidebar {
-        background: rgba(248, 250, 252, 0.95);
+        background: rgba(248, 250, 252, 0.97);
     }
 
     .sidebar-header,
@@ -143,56 +162,294 @@
     .sidebar-nav ul {
         flex-direction: row;
         justify-content: space-around;
-        align-items: center;
-        height: 64px;
+        align-items: stretch;
+        height: 56px;
         margin: 0;
-        padding: 0 4px;
+        padding: 0;
+        gap: 0;
     }
 
     .sidebar-nav ul li {
         flex: 1;
         display: flex;
         justify-content: center;
+        align-items: center;
     }
 
     .nav-item {
         flex-direction: column;
         gap: 2px;
-        padding: 6px 2px;
+        padding: 6px 4px;
         font-size: 0.7rem;
-        border-radius: var(--radius-sm);
+        border-radius: 0;
         justify-content: center;
         align-items: center;
-        min-height: 48px;
+        min-height: 56px;
+        background: transparent !important;
+        box-shadow: none !important;
+        color: var(--text-muted);
+        position: relative;
     }
 
     .nav-item span {
-        display: block;
-        font-size: 9px;
+        display: block !important;
+        font-size: 10px;
         text-align: center;
         line-height: 1.2;
-        max-width: 60px;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        white-space: nowrap;
+        font-weight: 500;
     }
 
     .nav-item:hover {
         transform: none;
+        background: none;
     }
 
     .nav-item.active {
-        background: var(--accent-gradient);
-        border-radius: var(--radius-md);
+        color: var(--accent-primary) !important;
+        background: transparent !important;
+        box-shadow: none !important;
+    }
+
+    .nav-item.active::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 24px;
+        height: 3px;
+        background: var(--accent-primary);
+        border-radius: 0 0 4px 4px;
     }
 
     .nav-item svg {
-        width: 20px;
-        height: 20px;
+        width: 22px;
+        height: 22px;
+    }
+
+    /* ---- Notif badge on "Ещё" tab ---- */
+    .more-notif-dot {
+        position: absolute;
+        top: 6px;
+        right: calc(50% - 16px);
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--danger);
+        z-index: 5;
+    }
+
+    /* ---- Desktop notifications: hide on mobile ---- */
+    .notif-badge {
+        display: none;
+    }
+
+    .notif-dropdown {
+        display: none;
     }
 }
 
-/* Notification Bell */
+/* =============================================
+   MOBILE OVERLAY
+============================================= */
+.mobile-overlay {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .mobile-overlay {
+        display: block;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 200;
+        animation: overlayFadeIn 0.2s ease;
+    }
+}
+
+@keyframes overlayFadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+/* =============================================
+   MOBILE "Ещё" BOTTOM SHEET
+============================================= */
+.mobile-more-sheet,
+.mobile-notif-sheet {
+    display: none;
+}
+
+@media (max-width: 768px) {
+
+    .mobile-more-sheet,
+    .mobile-notif-sheet {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 300;
+        background: var(--bg-secondary);
+        border-radius: 20px 20px 0 0;
+        padding-bottom: calc(16px + var(--safe-area-bottom, 0px));
+        max-height: 80vh;
+        box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.3);
+        animation: sheetSlideUp 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+    }
+
+    .light .mobile-more-sheet,
+    .light .mobile-notif-sheet {
+        background: #fff;
+        box-shadow: 0 -8px 40px rgba(0, 0, 0, 0.1);
+    }
+}
+
+@keyframes sheetSlideUp {
+    from {
+        transform: translateY(100%);
+    }
+
+    to {
+        transform: translateY(0);
+    }
+}
+
+.more-sheet-handle {
+    width: 36px;
+    height: 4px;
+    border-radius: 4px;
+    background: rgba(128, 128, 128, 0.3);
+    margin: 10px auto 0;
+    flex-shrink: 0;
+}
+
+.more-sheet-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 20px 8px;
+}
+
+.more-sheet-title {
+    font-weight: 700;
+    font-size: 1.1rem;
+    font-family: var(--font-heading);
+}
+
+.more-sheet-close {
+    width: 32px;
+    height: 32px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: rgba(128, 128, 128, 0.15);
+    color: var(--text-secondary);
+    cursor: pointer;
+    border: none;
+}
+
+/* User card */
+.more-sheet-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 20px;
+    margin: 0 12px;
+    background: var(--glass-bg);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--glass-border);
+}
+
+.more-user-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--accent-gradient);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 700;
+    font-size: 1rem;
+    flex-shrink: 0;
+}
+
+/* Menu items */
+.more-sheet-items {
+    display: flex;
+    flex-direction: column;
+    padding: 8px 12px;
+    overflow-y: auto;
+}
+
+.more-sheet-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 14px 16px;
+    border-radius: var(--radius-md);
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text-primary);
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-family: inherit;
+    width: 100%;
+    text-align: left;
+    transition: background 0.15s;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.more-sheet-item:active {
+    background: rgba(128, 128, 128, 0.1);
+}
+
+.more-sheet-item svg {
+    color: var(--text-secondary);
+    flex-shrink: 0;
+}
+
+.more-sheet-badge {
+    margin-left: auto;
+    min-width: 22px;
+    height: 22px;
+    border-radius: 12px;
+    background: var(--danger);
+    color: white;
+    font-size: 0.75rem;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 6px;
+}
+
+.more-sheet-divider {
+    height: 1px;
+    background: var(--glass-border);
+    margin: 4px 16px;
+}
+
+.more-sheet-logout {
+    color: var(--danger) !important;
+}
+
+.more-sheet-logout svg {
+    color: var(--danger) !important;
+}
+
+/* =============================================
+   Desktop notification dropdown (unchanged)
+============================================= */
 .notif-bell-btn {
     position: relative;
 }
@@ -269,6 +526,7 @@
     cursor: pointer;
     font-size: 0.8rem;
     font-weight: 600;
+    font-family: inherit;
 }
 
 .notif-dropdown-list {
@@ -315,44 +573,4 @@
     font-size: 0.72rem;
     color: var(--text-muted);
     margin-top: 4px;
-}
-
-/* Mobile: notification dropdown → full-width overlay from bottom */
-@media (max-width: 768px) {
-    .notif-dropdown {
-        position: fixed;
-        left: 0;
-        right: 0;
-        top: auto;
-        bottom: calc(64px + var(--safe-area-bottom, 0px));
-        width: 100vw;
-        max-height: 60vh;
-        border-radius: var(--radius-lg) var(--radius-lg) 0 0;
-        animation: notif-slide-up 0.25s ease-out;
-    }
-
-    @keyframes notif-slide-up {
-        from {
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-        to {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    }
-
-    .notif-badge {
-        top: 0px;
-        right: 50%;
-        transform: translateX(12px);
-        min-width: 16px;
-        height: 16px;
-        font-size: 0.6rem;
-    }
-
-    .notif-dropdown-list {
-        max-height: calc(60vh - 56px);
-    }
 }
