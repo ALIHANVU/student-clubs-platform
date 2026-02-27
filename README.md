@@ -1,73 +1,163 @@
-# React + TypeScript + Vite
+# 🎓 СтудКлубы ЧГУ
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+> Платформа управления студенческими клубами Чеченского Государственного Университета
 
-Currently, two official plugins are available:
+[![Deploy with Vercel](https://vercel.com/button)](https://student-clubs-platform-wgiw.vercel.app)
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+![TypeScript](https://img.shields.io/badge/TypeScript-83.6%25-blue?logo=typescript&logoColor=white)
+![CSS](https://img.shields.io/badge/CSS-11.5%25-purple?logo=css3&logoColor=white)
+![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)
+![Vite](https://img.shields.io/badge/Vite-7-646CFF?logo=vite&logoColor=white)
 
-## React Compiler
+---
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## 📱 Скриншоты
 
-## Expanding the ESLint configuration
+<table>
+<tr>
+<td width="50%">
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+### Десктоп
+- 🏠 Главная панель со статистикой
+- 📋 Каталог клубов с фильтрами
+- 📅 Расписание и ивенты
+- 🛡️ Админ-панель управления
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+</td>
+<td width="50%">
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+### Мобильная версия
+- 📱 Нативный нижний бар (4 таба)
+- 📋 iOS-style "Ещё" bottom sheet
+- 🔔 Уведомления с бейджами
+- 👆 Touch-friendly интерфейс
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+</td>
+</tr>
+</table>
+
+---
+
+## ✨ Возможности
+
+### 👤 Для студентов
+- Просмотр каталога клубов с фильтрами по категориям
+- Подача заявок на вступление в клубы
+- Регистрация на мероприятия
+- Просмотр расписания и уведомлений
+- Переключение тёмной/светлой темы
+
+### 🛡️ Для глобального администратора
+- Создание и удаление клубов
+- Объявление мероприятий
+- Управление участниками
+- Одобрение/отклонение заявок
+- **Назначение админов клубов**
+- Рассылка уведомлений
+- Статистика платформы
+
+### ⚙️ Для админа клуба
+- Управление участниками своего клуба
+- Создание мероприятий для клуба
+- Обработка заявок на вступление
+- Исключение участников
+
+---
+
+## 🛠️ Технологии
+
+| Технология | Назначение |
+|---|---|
+| **React 19** | UI-фреймворк |
+| **TypeScript** | Типизация |
+| **Vite 7** | Сборка |
+| **Supabase** | БД + Auth (продакшн) |
+| **localStorage** | Демо-режим |
+| **Lucide React** | Иконки |
+| **CSS Variables** | Тёмная/светлая тема |
+
+---
+
+## 🚀 Быстрый старт
+
+### Демо-режим (без базы данных)
+
+```bash
+git clone https://github.com/ALIHANVU/student-clubs-platform.git
+cd student-clubs-platform
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Откройте http://localhost:5173 → нажмите **"👑 Админ (Демо)"** или **"🎓 Студент (Демо)"**
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Продакшн-режим (Supabase)
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1. Создайте проект на [supabase.com](https://supabase.com)
+2. Примените SQL-схему из `supabase/schema.sql`
+3. Настройте `.env`:
+
+```env
+VITE_SUPABASE_URL=https://your-project.supabase.co
+VITE_SUPABASE_ANON_KEY=your-anon-key
 ```
+
+4. `npm run dev`
+
+---
+
+## 📂 Структура проекта
+
+```
+src/
+├── components/          # UI-компоненты
+│   ├── Layout.tsx       # Общий layout
+│   ├── Navigation.tsx   # Навигация (sidebar + mobile bar)
+│   └── ProtectedRoute.tsx
+├── contexts/            # React Context
+│   ├── AuthContext.tsx   # Авторизация
+│   ├── DataContext.tsx   # Данные (CRUD, demo/supabase)
+│   ├── NotificationContext.tsx
+│   └── ThemeContext.tsx  # Тёмная/Светлая тема
+├── pages/               # Страницы
+│   ├── Home.tsx         # Главная панель
+│   ├── Clubs.tsx        # Каталог клубов
+│   ├── Events.tsx       # Мероприятия
+│   ├── Schedule.tsx     # Расписание
+│   ├── ClubManage.tsx   # Управление клубом
+│   ├── AdminDashboard.tsx # Админ-панель
+│   └── Auth.tsx         # Авторизация
+├── data/mockData.ts     # Демо-данные
+└── lib/supabase.ts      # Клиент Supabase
+```
+
+---
+
+## 📋 Роли
+
+| Роль | Доступ |
+|---|---|
+| **Студент** | Просмотр, заявки, регистрация на ивенты |
+| **Админ клуба** | Управление участниками и ивентами своего клуба |
+| **Глобальный админ** | Полный доступ + назначение админов клубов |
+
+---
+
+## 🌐 Деплой
+
+Проект задеплоен на Vercel:  
+🔗 **[student-clubs-platform-wgiw.vercel.app](https://student-clubs-platform-wgiw.vercel.app)**
+
+Каждый `git push` автоматически обновляет деплой.
+
+---
+
+## 📄 Лицензия
+
+MIT
+
+---
+
+<p align="center">
+  <strong>Сделано для ЧГУ 🏛️</strong>
+</p>
