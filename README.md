@@ -1,66 +1,6 @@
-# 🎓 СтудКлубы ЧГУ
+#  СтудКлубы ЧГУ
 
-> Платформа управления студенческими клубами Чеченского Государственного Университета
 
-[![Deploy with Vercel](https://vercel.com/button)](https://student-clubs-platform-wgiw.vercel.app)
-
-![TypeScript](https://img.shields.io/badge/TypeScript-83.6%25-blue?logo=typescript&logoColor=white)
-![CSS](https://img.shields.io/badge/CSS-11.5%25-purple?logo=css3&logoColor=white)
-![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)
-![Vite](https://img.shields.io/badge/Vite-7-646CFF?logo=vite&logoColor=white)
-
----
-
-## 📱 Скриншоты
-
-<table>
-<tr>
-<td width="50%">
-
-### Десктоп
-- 🏠 Главная панель со статистикой
-- 📋 Каталог клубов с фильтрами
-- 📅 Расписание и ивенты
-- 🛡️ Админ-панель управления
-
-</td>
-<td width="50%">
-
-### Мобильная версия
-- 📱 Нативный нижний бар (4 таба)
-- 📋 iOS-style "Ещё" bottom sheet
-- 🔔 Уведомления с бейджами
-- 👆 Touch-friendly интерфейс
-
-</td>
-</tr>
-</table>
-
----
-
-## ✨ Возможности
-
-### 👤 Для студентов
-- Просмотр каталога клубов с фильтрами по категориям
-- Подача заявок на вступление в клубы
-- Регистрация на мероприятия
-- Просмотр расписания и уведомлений
-- Переключение тёмной/светлой темы
-
-### 🛡️ Для глобального администратора
-- Создание и удаление клубов
-- Объявление мероприятий
-- Управление участниками
-- Одобрение/отклонение заявок
-- **Назначение админов клубов**
-- Рассылка уведомлений
-- Статистика платформы
-
-### ⚙️ Для админа клуба
-- Управление участниками своего клуба
-- Создание мероприятий для клуба
-- Обработка заявок на вступление
-- Исключение участников
 
 ---
 
@@ -78,33 +18,6 @@
 
 ---
 
-## 🚀 Быстрый старт
-
-### Демо-режим (без базы данных)
-
-```bash
-git clone https://github.com/ALIHANVU/student-clubs-platform.git
-cd student-clubs-platform
-npm install
-npm run dev
-```
-
-Откройте http://localhost:5173 → нажмите **"👑 Админ (Демо)"** или **"🎓 Студент (Демо)"**
-
-### Продакшн-режим (Supabase)
-
-1. Создайте проект на [supabase.com](https://supabase.com)
-2. Примените SQL-схему из `supabase/schema.sql`
-3. Настройте `.env`:
-
-```env
-VITE_SUPABASE_URL=https://your-project.supabase.co
-VITE_SUPABASE_ANON_KEY=your-anon-key
-```
-
-4. `npm run dev`
-
----
 
 ## 📂 Структура проекта
 
@@ -131,33 +44,3 @@ src/
 └── lib/supabase.ts      # Клиент Supabase
 ```
 
----
-
-## 📋 Роли
-
-| Роль | Доступ |
-|---|---|
-| **Студент** | Просмотр, заявки, регистрация на ивенты |
-| **Админ клуба** | Управление участниками и ивентами своего клуба |
-| **Глобальный админ** | Полный доступ + назначение админов клубов |
-
----
-
-## 🌐 Деплой
-
-Проект задеплоен на Vercel:  
-🔗 **[student-clubs-platform-wgiw.vercel.app](https://student-clubs-platform-wgiw.vercel.app)**
-
-Каждый `git push` автоматически обновляет деплой.
-
----
-
-## 📄 Лицензия
-
-MIT
-
----
-
-<p align="center">
-  <strong>Сделано для ЧГУ 🏛️</strong>
-</p>
